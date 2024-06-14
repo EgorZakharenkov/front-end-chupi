@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "http://localhost:4444"; // Замените на ваш базовый URL
+const baseURL = "https://back-end-chupi-production.up.railway.app"; // Замените на ваш базовый URL
 
 const api = axios.create({
   baseURL,
