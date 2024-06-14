@@ -1,0 +1,66 @@
+.playList {
+  .namePlayList {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+
+    p {
+      font-size: 12px;
+      color: #848484;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    i {
+      cursor: pointer;
+      color: #f1f1f1;
+    }
+  }
+
+  .scrollPlayList {
+    height: 140px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    .item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #848484;
+      cursor: pointer;
+      transition: .3s;
+
+      &:hover {
+        color: #f1f1f1;
+      }
+
+      .wrapper {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+
+        span {
+          font-weight: bold;
+          font-size: 16px;
+
+        }
+
+        i {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+
+}
+@media screen and (max-width: 550px) {
+
+  .playList {
+    display: none;
+  }
+}

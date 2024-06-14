@@ -1,0 +1,21 @@
+.topPlayList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  .name {
+    font-size: 22px;
+    text-transform: uppercase;
+  }
+  .tracksText {
+    color: #b6b3b3;
+    font-weight: 600;
+  }
+  .item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    i {
+      cursor: pointer;
+    }
+  }
+}

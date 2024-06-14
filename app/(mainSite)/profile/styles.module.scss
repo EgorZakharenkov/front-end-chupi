@@ -1,0 +1,36 @@
+.profile {
+  margin: 25px 0 0 25px;
+  position: relative;
+  .wrapper {
+    margin-top: 40px;
+    display: flex;
+    gap: 10px;
+    align-items: start;
+    .left {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+  .logout {
+    position: absolute;
+    top: 0;
+    right: 20px;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .profileImage {
+    object-fit: cover;
+    border-radius: 50%;
+    height: 120px;
+  }
+  .wrapperDelete {
+    display: flex;
+    gap: 15px;
+  }
+}

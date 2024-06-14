@@ -1,0 +1,141 @@
+.baner {
+  position: relative;
+  height: 300px;
+
+  .imgBaner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.5);
+  }
+
+  .content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 20px 30px;
+    display: flex;
+    flex-direction: column;
+    z-index: 3;
+
+
+    .artist {
+      color: #f1f1f1;
+      display: flex;
+      margin-top: auto;
+      align-items: center;
+      justify-content: space-between;
+
+      .left {
+        .name {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+
+          h2 {
+            cursor: pointer;
+            font-size: 50px;
+          }
+
+          img {
+            width: 30px;
+          }
+
+
+        }
+
+        p {
+          font-size: 14px;
+
+          i {
+            margin-right: 6px;
+          }
+
+          span {
+            color: #848484;
+            margin-left: 5px;
+          }
+        }
+      }
+
+      .right {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+
+        a {
+          display: flex;
+          align-items: center;
+          padding: 10px 40px;
+          text-decoration: none;
+          font-size: 16px;
+          color: #f1f1f1;
+          border-radius: 100vh;
+          cursor: pointer;
+          transition: all .3s;
+          font-weight: 600;
+
+          &:hover {
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+          }
+        }
+        .playing {
+          background: #49e12e;
+          &:hover{
+            box-shadow: 0 0 20px rgb(68, 227, 60, 0.8);
+
+          }
+        }
+
+
+        .follow {
+          background: #000;
+          gap: 10px;
+        }
+
+        .noFollow {
+          background: rgba(0, 0, 0, 0.3);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          transition: all .3s;
+        }
+      }
+    }
+
+  }
+
+  .bottomLayer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 5rem;
+    background-image: linear-gradient(transparent, rgba(0, 0, 0, .9));
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .baner{
+    height: 230px;
+    .content{
+      .artist{
+        .left{
+          .name{
+            h2{
+              font-size: 25px;
+            }
+          }
+        }
+        .right{
+          display: none ;
+        }
+      }
+
+    }
+  }
+}
+

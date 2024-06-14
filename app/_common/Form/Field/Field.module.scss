@@ -1,0 +1,36 @@
+.customField {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: black;
+  .input {
+    max-width: 250px;
+    padding: 10px;
+    outline: none;
+    border: 1px solid transparent;
+    height: 32px;
+    border-radius: 6px;
+    background: #ecebeb;
+    color: #000;
+    font-size: 18px;
+  }
+  .inputErrors {
+    border: 2px solid orangered;
+  }
+  .error {
+    color:orangered;
+    max-width: 250px;
+  }
+}
+.dark {
+  color: #f1f1f1;
+  .input {
+    color: #f1f1f1;
+    background: #000;
+    border: 1px solid #646262;
+    &:focus {
+      border: 1px solid #f1f1f1;
+
+    }
+  }
+}

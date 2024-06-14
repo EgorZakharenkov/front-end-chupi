@@ -1,0 +1,35 @@
+{
+  "extends": [
+    "stylelint-config-standard-scss",
+    "stylelint-config-idiomatic-order"
+  ],
+  "plugins": [
+    "stylelint-order"
+  ],
+  "rules": {
+    "color-function-notation": "legacy",
+    "alpha-value-notation": "number",
+    "media-feature-range-notation": "prefix",
+    "color-hex-length": "long",
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        "ignorePseudoClasses": [
+          "global",
+          "local"
+        ]
+      }
+    ],
+    "scss/at-mixin-pattern": [
+      ".*"
+    ],
+    "selector-class-pattern": [
+      "^[a-z]+((\\d)|([A-Z0-9][a-z0-9]+))*([A-Z])?",
+      {
+        "message": "Селектор должен быть в camelCase"
+      }
+    ],
+    "shorthand-property-no-redundant-values": null,
+    "no-descending-specificity": null
+  }
+}

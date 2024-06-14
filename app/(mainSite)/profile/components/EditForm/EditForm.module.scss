@@ -1,0 +1,19 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  backdrop-filter: blur(10px);
+  padding: 25px 15px;
+  border-radius: 16px;
+  .profileImage {
+    border-radius: 50%;
+    object-fit: cover;
+    height: 120px;
+  }
+  .delete {
+    display: flex;
+    gap: 10px;
+    cursor: pointer;
+    align-items: center;
+  }
+}
