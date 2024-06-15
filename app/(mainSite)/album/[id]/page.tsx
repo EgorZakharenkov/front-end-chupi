@@ -1,8 +1,8 @@
 "use client";
 
 import BreadCrumb from "@/app/_common/BreadCrumb/BreadCrumb";
-import styles from "./style.module.scss";
 import { useAppSelector } from "@/redux/hooks";
+import styles from "../../artist/[id]/style.module.scss";
 import { RootState } from "@/redux/rootReducers";
 import Song from "@/app/_common/Song/Song";
 import React from "react";
