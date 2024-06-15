@@ -65,7 +65,7 @@ const HeaderPlayLists = () => {
             <Form>
               <Field variant={"dark"} label={"Название"} name={"name"} />
               <DialogFooter>
-                <Button type="submit">Save changes</Button>
+                <Button type="submit">Сохранить</Button>
               </DialogFooter>
             </Form>
           </Formik>
