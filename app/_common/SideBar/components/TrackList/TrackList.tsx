@@ -34,7 +34,7 @@ const TrackList = () => {
               src={
                 item.imgSong.includes("http")
                   ? item.imgSong
-                  : `http://localhost:4444/${item.imgSong}`
+                  : `https://back-end-chupi-production.up.railway.app/${item.imgSong}`
               }
               alt=""
             />

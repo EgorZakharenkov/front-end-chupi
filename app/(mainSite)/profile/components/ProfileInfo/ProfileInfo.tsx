@@ -4,6 +4,7 @@ import React from "react";
 import styles from "./ProfileInfo.module.scss";
 import { useAppSelector } from "@/redux/hooks";
 import { RootState } from "@/redux/rootReducers";
+import api from "@/constants/axiosBase";
 const ProfileInfo = () => {
   const user = useAppSelector(
     (state: RootState) => state.UserSlice.user?.userData,
@@ -14,7 +15,7 @@ const ProfileInfo = () => {
         className={styles.profileImage}
         src={
           user?.image
-            ? `http://localhost:4444/${user.image}`
+            ? `https://back-end-chupi-production.up.railway.app/${user.image}`
             : "https://news.store.rambler.ru/img/8216a3fa1bdcc02143a78295811e74ac?img-format=auto&img-1-resize=height:400,fit:max&img-2-filter=sharpen"
         }
         alt={"profile"}

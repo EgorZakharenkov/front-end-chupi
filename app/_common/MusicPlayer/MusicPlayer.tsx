@@ -101,13 +101,11 @@ const MusicPlayer: React.FC = () => {
       {item !== null ? (
         <div className={styles.content}>
           <div className={styles.bg}>
-            <Image
-              width={100}
-              height={100}
+            <img
               src={
                 item.imgSong.includes("http")
                   ? item.imgSong
-                  : `http://localhost:4444/${item.imgSong}`
+                  : `https://back-end-chupi-production.up.railway.app/${item.imgSong}`
               }
               className={styles.bg_image}
               alt={item.imgSong}
@@ -122,7 +120,7 @@ const MusicPlayer: React.FC = () => {
                   src={
                     item.imgSong.includes("http")
                       ? item.imgSong
-                      : `http://localhost:4444/${item.imgSong}`
+                      : `https://back-end-chupi-production.up.railway.app/${item.imgSong}`
                   }
                   alt={item.imgSong}
                 />

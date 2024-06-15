@@ -35,7 +35,7 @@ const CreateTrack = ({
   const [imageSrc, setImageSrc] = useState<string | null>(
     item?.imgSong.includes("http")
       ? item.imgSong
-      : `https://localhost:4444/${item?.imgSong}`,
+      : `https://back-end-chupi-production.up.railway.app/${item?.imgSong}`,
   );
   const [selected, setSelectedFile] = useState<File | null>(null);
   const dispatch = useAppDispatch();

@@ -7,6 +7,7 @@ import styles from "./style.module.scss";
 import { ArtistType, FetchArtist, setArtist } from "@/redux/slices/artistSlice";
 import { SetArtistTracks } from "@/redux/slices/musicSlice";
 import { useRouter } from "next/navigation";
+import api from "./../../../../constants/axiosBase";
 const TopInfoArtists = () => {
   const artist = useAppSelector(
     (state: RootState) => state.ArtistSlice.artists,
@@ -36,8 +37,8 @@ const TopInfoArtists = () => {
             >
               <h2>{item.name}</h2>
               <img
-                src={`http://localhost:4444/${item.image}`}
-                alt={`http://localhost:4444/${item.image}`}
+                src={`https://back-end-chupi-production.up.railway.app/${item.image}`}
+                alt={`${api}/${item.image}`}
               />
             </div>
           ))}

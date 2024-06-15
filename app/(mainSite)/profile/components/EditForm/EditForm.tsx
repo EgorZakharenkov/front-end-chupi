@@ -26,7 +26,7 @@ const EditForm = () => {
   const file = useAppSelector((state: RootState) => state.UserSlice.user?.file);
   const [imageSrc, setImageSrc] = useState<string | null>(
     user?.image && user.image !== ""
-      ? `http://localhost:4444/${user?.image}`
+      ? `https://back-end-chupi-production.up.railway.app/${user?.image}`
       : "https://news.store.rambler.ru/img/8216a3fa1bdcc02143a78295811e74ac?img-format=auto&img-1-resize=height:400,fit:max&img-2-filter=sharpen",
   );
   const [selected, setSelectedFile] = useState<File | null>(file ? file : null);
