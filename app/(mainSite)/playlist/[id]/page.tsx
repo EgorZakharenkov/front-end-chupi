@@ -18,16 +18,19 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import SearchBox from "@/app/_common/SideBar/components/SearchBox/SearchBox";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function Page({ params }: { params: { id: string } }) {
   const [playList, setPlayList] = useState<{
     name: string;
     creator: string;
     tracks: [];
+    _id: string;
   }>({
     name: "",
     creator: "",
     tracks: [],
+    _id: "",
   });
   const items = useAppSelector(
     (state: RootState) => state.MusicSlice.musics.itemsDefault,
@@ -53,13 +56,18 @@ export default function Page({ params }: { params: { id: string } }) {
   const addTrackToPlayList = async (item: MusicItems) => {
     try {
       await api.put(`/playlist/add/${params.id}`, item);
-      await getPlayListInfo(params.id);
+      await getPlayListInfo(params.id).then(() => {
+        toast.success("Успешно добавили трек");
+      });
     } catch (e) {
       alert("Не удалось добавить трек ");
     }
   };
   const deleteTrackFromPlayList = async (id: string) => {
     await api.delete(`playlist/${params.id}/tracks/${id}`);
+    await getPlayListInfo(params.id).then(() => {
+      toast.success("Успешно удалили трек");
+    });
   };
   const changeSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -73,7 +81,11 @@ export default function Page({ params }: { params: { id: string } }) {
 
   return (
     <div className={styles.playList}>
-      <TopPlayList params={params} playList={playList} />
+      <TopPlayList
+        getPlayListInfo={getPlayListInfo}
+        params={params}
+        playList={playList}
+      />
       <Dialog>
         <DialogTrigger asChild>
           <Button children={"Добавить"} />
@@ -105,6 +117,7 @@ export default function Page({ params }: { params: { id: string } }) {
             </div>
           </DialogHeader>
         </DialogContent>
+        <ToastContainer />
       </Dialog>
     </div>
   );

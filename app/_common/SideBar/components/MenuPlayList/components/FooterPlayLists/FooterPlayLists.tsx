@@ -20,6 +20,7 @@ import {
   PlayListProp,
 } from "@/redux/slices/playListSlice";
 import Link from "next/link";
+import { toast } from "react-toastify";
 
 const FooterPlayLists = () => {
   const dispatch = useAppDispatch();
@@ -30,6 +31,7 @@ const FooterPlayLists = () => {
   const ChangeDelete = (item: PlayListProp) => {
     dispatch(FetchRemovePlayList(item._id));
     dispatch(deletePlayList(item));
+    toast.success("Успешно удалено");
   };
   return (
     <div className={styles.scrollPlayList}>

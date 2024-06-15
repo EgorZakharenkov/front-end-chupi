@@ -19,10 +19,12 @@ import { ArtistType, FetchArtist } from "@/redux/slices/artistSlice";
 import api from "@/constants/axiosBase";
 import { RootState } from "@/redux/rootReducers";
 import { useParams, useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const CreateArtist = ({ children }: { children?: string }) => {
   const [name, setName] = useState<string>();
   const { id } = useParams();
+  const [open, setOpen] = useState(false);
   const userRole = useAppSelector(
     (state: RootState) => state.UserSlice.user?.userData?.role,
   );
@@ -63,16 +65,26 @@ const CreateArtist = ({ children }: { children?: string }) => {
     }
     try {
       id
-        ? await api.put(`/artist/${id}`, formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          })
-        : await api.post("/artist", formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          });
+        ? await api
+            .put(`/artist/${id}`, formData, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            })
+            .then(() => {
+              toast.success("Успешно");
+              setOpen(false);
+            })
+        : await api
+            .post("/artist", formData, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            })
+            .then(() => {
+              toast.success("Успешно добавили артиста");
+              setOpen(false);
+            });
       dispatch(FetchArtist());
       router.push("/artist");
     } catch (e) {
@@ -82,9 +94,9 @@ const CreateArtist = ({ children }: { children?: string }) => {
   return (
     <div>
       {userRole === "admin" && (
-        <Dialog>
+        <Dialog open={open}>
           <DialogTrigger>
-            <Button children={children} />
+            <Button onClick={() => setOpen(true)} children={children} />
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
@@ -121,6 +133,7 @@ const CreateArtist = ({ children }: { children?: string }) => {
                 <InputFile
                   setSelectedFile={setSelectedFile}
                   setImageSrc={setImageSrc}
+                  label={"Выбрать фото"}
                 />
                 <DialogFooter>
                   <Button type="submit">Сохранить</Button>

@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { FetchRemoveArtist } from "@/redux/slices/artistSlice";
 import api from "@/constants/axiosBase";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 export default function Page({ params }: { params: { id: string } }) {
   const songs = useAppSelector(
     (state: RootState) => state.MusicSlice.musics.items,
@@ -23,6 +24,7 @@ export default function Page({ params }: { params: { id: string } }) {
   );
   const router = useRouter();
   const handleDelete = () => {
+    toast.success("Успешно удалили");
     api.delete(`/artist/${currentArtist._id}`).then();
     router.push("/artist");
   };

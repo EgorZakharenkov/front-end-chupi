@@ -1,6 +1,7 @@
 import TopInfoArtists from "@/app/(mainSite)/artist/components/TopInfoArtists";
 import CreateArtist from "@/app/(mainSite)/artist/components/CreateArtist";
 import BreadCrumb from "@/app/_common/BreadCrumb/BreadCrumb";
+import { ToastContainer } from "react-toastify";
 
 export default function Page() {
   return (
@@ -15,6 +16,7 @@ export default function Page() {
       <BreadCrumb name={"Артисты"} />
       <TopInfoArtists />
       <CreateArtist children={"Добавить артиста"} />
+      <ToastContainer />
     </div>
   );
 }

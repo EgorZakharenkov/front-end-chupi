@@ -5,7 +5,7 @@ import TopInfoAlbums from "@/app/(mainSite)/album/components/TopInfoAlbums";
 
 export default async function Page() {
   return (
-    <div>
+    <div style={{ padding: "25px" }}>
       <BreadCrumb name={"Альбомы"} />
       <TopInfoAlbums />
       <CreateAlbums children={"Добавить Альбом"} />

@@ -19,6 +19,7 @@ import { ArtistType, FetchArtist } from "@/redux/slices/artistSlice";
 import api from "@/constants/axiosBase";
 import { RootState } from "@/redux/rootReducers";
 import { useParams, useRouter } from "next/navigation";
+import { FetchAlbums } from "@/redux/slices/albumsSlice";
 
 const CreateAlbums = ({ children }: { children?: string }) => {
   const [name, setName] = useState<string>();
@@ -63,18 +64,17 @@ const CreateAlbums = ({ children }: { children?: string }) => {
     }
     try {
       id
-        ? await api.put(`/albums/${id}`, formData, {
+        ? await api.put(`/album/${id}`, formData, {
             headers: {
               "Content-Type": "multipart/form-data",
             },
           })
-        : await api.post("/artist", formData, {
+        : await api.post("/album", formData, {
             headers: {
               "Content-Type": "multipart/form-data",
             },
           });
-      dispatch(FetchArtist());
-      router.push("/albums");
+      dispatch(FetchAlbums());
     } catch (e) {
       console.log(e);
     }
@@ -125,6 +125,7 @@ const CreateAlbums = ({ children }: { children?: string }) => {
                 <InputFile
                   setSelectedFile={setSelectedFile}
                   setImageSrc={setImageSrc}
+                  label={"Выбрать фото"}
                 />
                 <DialogFooter>
                   <Button type="submit">Сохранить</Button>

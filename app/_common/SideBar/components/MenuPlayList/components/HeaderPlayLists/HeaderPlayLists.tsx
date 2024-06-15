@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "@/app/_common/SideBar/components/MenuPlayList/MenuPlayList.module.scss";
 import {
   Dialog,
@@ -18,12 +18,20 @@ import api from "@/constants/axiosBase";
 import { FetchPLayList } from "@/redux/slices/playListSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { RootState } from "@/redux/rootReducers";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const HeaderPlayLists = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(
     (state: RootState) => state.UserSlice.user?.userData,
   );
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const toggleDialog = () => {
+    setDialogOpen(!dialogOpen);
+  };
+
   const handleSubmit = async (values: { name: string }) => {
     const CreateData = {
       name: values.name,
@@ -34,17 +42,21 @@ const HeaderPlayLists = () => {
       if (user) {
         dispatch(FetchPLayList(user._id));
       }
+      toast.success("Плейлист успешно добавлен!");
+      setDialogOpen(false); // Закрыть диалог после успешного сохранения
     } catch (e) {
       console.log(e);
+      toast.error("Произошла ошибка при создании плейлиста!");
     }
   };
+
   return (
     <div className={styles.namePlayList}>
       <p>Плейлисты</p>
-      <Dialog>
+      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogTrigger asChild>
           <i>
-            <FaPlus />
+            <FaPlus onClick={toggleDialog} />
           </i>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
@@ -59,7 +71,10 @@ const HeaderPlayLists = () => {
               name: "",
             }}
             validateOnBlur={false}
-            onSubmit={handleSubmit}
+            onSubmit={(values, { resetForm }) => {
+              handleSubmit(values);
+              resetForm();
+            }}
             validationSchema={validationSchema}
           >
             <Form>

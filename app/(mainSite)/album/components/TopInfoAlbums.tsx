@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import styles from "@/app/(mainSite)/artist/components/style.module.scss";
 import api from "@/constants/axiosBase";

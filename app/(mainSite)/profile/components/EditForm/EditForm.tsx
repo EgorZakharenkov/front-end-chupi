@@ -18,11 +18,13 @@ import { RootState } from "@/redux/rootReducers";
 import { validationSchema } from "@/app/(mainSite)/profile/components/EditForm/constants";
 import api from "@/constants/axiosBase";
 import { setProfile } from "@/redux/slices/userSlice";
+import { toast } from "react-toastify";
 
 const EditForm = () => {
   const user = useAppSelector(
     (state: RootState) => state.UserSlice.user?.userData,
   );
+  const [open, setOpen] = useState(false);
   const file = useAppSelector((state: RootState) => state.UserSlice.user?.file);
   const [imageSrc, setImageSrc] = useState<string | null>(
     user?.image && user.image !== ""
@@ -51,6 +53,8 @@ const EditForm = () => {
         });
         dispatch(setProfile(response.data));
         localStorage.setItem("token", response.data.token);
+        toast.success("Успешно сохранено");
+        setOpen(false);
       } catch (error) {
         console.error("Error updating profile:", error);
       }
@@ -58,9 +62,13 @@ const EditForm = () => {
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant={"outline"} children={"Изменить"} />
+        <Button
+          onClick={() => setOpen(true)}
+          variant={"outline"}
+          children={"Изменить"}
+        />
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -90,6 +98,7 @@ const EditForm = () => {
             <InputFile
               setSelectedFile={setSelectedFile}
               setImageSrc={setImageSrc}
+              label={"Добавить фото"}
             />
             <Field
               variant={"dark"}

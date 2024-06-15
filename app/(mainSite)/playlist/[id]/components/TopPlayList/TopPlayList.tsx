@@ -19,13 +19,16 @@ const TopPlayList: React.FC<{
   playList: {
     name: string;
     tracks: MusicItems[];
+    _id: string;
   };
   params: {
     id: string;
   };
-}> = ({ playList, params }) => {
+  getPlayListInfo: any;
+}> = ({ playList, params, getPlayListInfo }) => {
   const deleteTrackFromPlayList = async (id: string) => {
     await api.delete(`playlist/${params.id}/tracks/${id}`);
+    await getPlayListInfo(playList._id);
   };
   return (
     <div className={styles.topPlayList}>

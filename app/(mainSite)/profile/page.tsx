@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import EditForm from "@/app/(mainSite)/profile/components/EditForm/EditForm";
 import { useRouter } from "next/navigation";
 import { RootState } from "@/redux/rootReducers";
+import { ToastContainer } from "react-toastify";
 
 export default function Page() {
   const router = useRouter();
@@ -38,6 +39,7 @@ export default function Page() {
           <Button children={"Войти"} onClick={handleLogout} />
         )}
       </div>
+      <ToastContainer />
     </div>
   );
 }

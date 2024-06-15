@@ -127,7 +127,11 @@ const MusicPlayer: React.FC = () => {
               </div>
               <div className={styles.songAttributes}>
                 <audio
-                  src={`https://back-end-chupi-production.up.railway.app/${item.song}`}
+                  src={
+                    item.song.includes("http")
+                      ? item.song
+                      : `https://back-end-chupi-production.up.railway.app/${item.song}`
+                  }
                   ref={audioPlayer as React.RefObject<HTMLAudioElement>}
                   preload="metadata"
                 ></audio>
