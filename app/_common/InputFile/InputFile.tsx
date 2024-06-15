@@ -4,8 +4,13 @@ import styles from "./InputFile.module.scss";
 type Props = {
   setImageSrc: (s: string) => void;
   setSelectedFile: (selected: File) => void;
+  label: string;
 };
-const InputFile: React.FC<Props> = ({ setImageSrc, setSelectedFile }) => {
+const InputFile: React.FC<Props> = ({
+  label,
+  setImageSrc,
+  setSelectedFile,
+}) => {
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
@@ -19,7 +24,7 @@ const InputFile: React.FC<Props> = ({ setImageSrc, setSelectedFile }) => {
   return (
     <div className={styles.fileInputContainer}>
       <label htmlFor="fileInput" className={styles.fileLabel}>
-        <span>Выбрать картинку</span>
+        <span>{label}</span>
       </label>
       <input
         onChange={handleFileChange}

@@ -32,29 +32,39 @@ const CreateTrack = ({
     duration: item?.duration,
     imgSong: item?.imgSong,
   });
+
   const [imageSrc, setImageSrc] = useState<string | null>(
-    item?.imgSong.includes("http")
+    item?.imgSong && item.imgSong.includes("http")
       ? item.imgSong
-      : `https://back-end-chupi-production.up.railway.app/${item?.imgSong}`,
+      : item?.imgSong
+        ? `https://back-end-chupi-production.up.railway.app/${item?.imgSong}`
+        : null,
   );
-  const [selected, setSelectedFile] = useState<File | null>(null);
+
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [selectedSong, setSelectedSong] = useState<File | null>(null);
   const dispatch = useAppDispatch();
+
   const handleSubmit = async (values: {
     songName: string;
-    song: string;
     artist: string;
     duration: string;
     textSong: string;
   }) => {
     const formData = new FormData();
     formData.append("songName", values.songName);
-    formData.append("song", values.song);
     formData.append("artist", values.artist);
     formData.append("duration", values.duration);
     formData.append("textSong", values.textSong);
-    if (selected) {
-      formData.append("file", selected);
+
+    if (selectedImage) {
+      formData.append("imageFile", selectedImage);
     }
+
+    if (selectedSong) {
+      formData.append("songFile", selectedSong);
+    }
+
     try {
       item
         ? await api.put(`/music/${item._id}`, formData, {
@@ -86,10 +96,8 @@ const CreateTrack = ({
         <Formik
           initialValues={{
             songName: musicData.songName ? musicData.songName : "",
-            song: musicData.song ? musicData.song : "",
             artist: musicData.artist ? musicData.artist : "",
             duration: musicData.duration ? musicData.duration : "",
-            imgSong: musicData.imgSong ? musicData.imgSong : "",
             textSong: musicData.textSong ? musicData.textSong : "",
           }}
           validateOnBlur={false}
@@ -105,7 +113,6 @@ const CreateTrack = ({
             />
             <Field variant={"dark"} label={"Артист"} name={"artist"} />
             <Field variant={"dark"} label={"Текст трека"} name={"textSong"} />
-            <Field variant={"dark"} label={"Ссылка на трек"} name={"song"} />
             <img
               className={styles.profileImage}
               src={
@@ -118,8 +125,14 @@ const CreateTrack = ({
               height={120}
             />
             <InputFile
-              setSelectedFile={setSelectedFile}
+              label="Загрузить изображение"
+              setSelectedFile={setSelectedImage}
               setImageSrc={setImageSrc}
+            />
+            <InputFile
+              label="Загрузить песню"
+              setSelectedFile={setSelectedSong}
+              setImageSrc={() => {}} // Не требуется для песен, но нужно передать пустую функцию, чтобы типизация совпадала
             />
             <Field variant={"dark"} label={"Длительность"} name={"duration"} />
             <DialogFooter>

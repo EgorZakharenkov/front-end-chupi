@@ -30,7 +30,7 @@ export const AlbumSlice = createSlice({
   name: "AlbumSlice",
   initialState,
   reducers: {
-    setArtist: (state, action) => {
+    setAlbum: (state, action) => {
       state.album = action.payload;
     },
   },
@@ -41,5 +41,5 @@ export const AlbumSlice = createSlice({
   },
 });
 
-export const { setArtist } = AlbumSlice.actions;
+export const { setAlbum } = AlbumSlice.actions;
 export default AlbumSlice.reducer;
