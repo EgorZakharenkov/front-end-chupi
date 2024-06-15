@@ -20,9 +20,11 @@ import api from "@/constants/axiosBase";
 import { RootState } from "@/redux/rootReducers";
 import { useParams, useRouter } from "next/navigation";
 import { FetchAlbums } from "@/redux/slices/albumsSlice";
+import { toast } from "react-toastify";
 
 const CreateAlbums = ({ children }: { children?: string }) => {
   const [name, setName] = useState<string>();
+  const [open, setOpen] = useState(false);
   const { id } = useParams();
   const userRole = useAppSelector(
     (state: RootState) => state.UserSlice.user?.userData?.role,
@@ -64,16 +66,26 @@ const CreateAlbums = ({ children }: { children?: string }) => {
     }
     try {
       id
-        ? await api.put(`/album/${id}`, formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          })
-        : await api.post("/album", formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          });
+        ? await api
+            .put(`/album/${id}`, formData, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            })
+            .then(() => {
+              toast.success("Успешно изменено");
+              setOpen(false);
+            })
+        : await api
+            .post("/album", formData, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            })
+            .then(() => {
+              toast.success("Успешно сохранено");
+              setOpen(false);
+            });
       dispatch(FetchAlbums());
     } catch (e) {
       console.log(e);
@@ -82,9 +94,9 @@ const CreateAlbums = ({ children }: { children?: string }) => {
   return (
     <div>
       {userRole === "admin" && (
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger>
-            <Button children={children} />
+            <Button onClick={() => setOpen(true)} children={children} />
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>

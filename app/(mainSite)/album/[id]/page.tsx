@@ -21,6 +21,7 @@ import DeleteIcon from "@mui/icons-material/Clear";
 import AddIcon from "@mui/icons-material/Add";
 import { toast, ToastContainer } from "react-toastify";
 import TopInfoAlbum from "@/app/(mainSite)/album/[id]/components/TopInfoAlbum";
+import { useRouter } from "next/navigation";
 
 export default function Page({ params }: { params: { id: string } }) {
   const [albums, setAlbums] = useState<{
@@ -32,6 +33,7 @@ export default function Page({ params }: { params: { id: string } }) {
     image: "",
     songs: [],
   });
+  const router = useRouter();
   const songs = useAppSelector(
     (state: RootState) => state.MusicSlice.musics.itemsDefault,
   );
@@ -56,10 +58,7 @@ export default function Page({ params }: { params: { id: string } }) {
   };
 
   useEffect(() => {
-    getAlbumInfo(params.id).then(() => {});
-  }, [params.id]);
-
-  useEffect(() => {
+    getAlbumInfo(params.id).then();
     if (albums.songs.length !== 0) {
       setSearchItems(songs);
       dispatch(SetTracksFromPlayList(albums.songs));
@@ -101,6 +100,10 @@ export default function Page({ params }: { params: { id: string } }) {
     );
     setSearch("");
   };
+  const handleDelete = () => {
+    api.delete(`/album/${params.id}`);
+    router.push("/album");
+  };
 
   return (
     <div
@@ -114,8 +117,19 @@ export default function Page({ params }: { params: { id: string } }) {
       {albums ? (
         <div>
           <BreadCrumb name={`Альбом ${albums.name}`} />
-          {role === "admin" && <CreateAlbums children={"Изменить"} />}
-          {albums.songs && <TopInfoAlbum songs={albums.songs} />}
+          {role === "admin" && (
+            <div style={{ marginBottom: "20px", display: "flex", gap: "15px" }}>
+              <CreateAlbums children={"Изменить"} />
+              <Button onClick={handleDelete}>Удалить</Button>
+            </div>
+          )}
+          {albums.songs && (
+            <TopInfoAlbum
+              getAlbumInfo={getAlbumInfo}
+              id={params.id}
+              songs={albums.songs}
+            />
+          )}
           <Dialog>
             <DialogTrigger asChild>
               <Button children={"Добавить треки"} />
