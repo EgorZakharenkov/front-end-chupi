@@ -16,6 +16,8 @@ import { FetchMusic, MusicItems } from "@/redux/slices/musicSlice";
 import InputFile from "@/app/_common/InputFile/InputFile";
 import styles from "@/app/(mainSite)/profile/components/EditForm/EditForm.module.scss";
 import { useAppDispatch } from "@/redux/hooks";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CreateTrack = ({
   item,
@@ -32,7 +34,6 @@ const CreateTrack = ({
     duration: item?.duration,
     imgSong: item?.imgSong,
   });
-
   const [imageSrc, setImageSrc] = useState<string | null>(
     item?.imgSong && item.imgSong.includes("http")
       ? item.imgSong
@@ -58,29 +59,41 @@ const CreateTrack = ({
     formData.append("textSong", values.textSong);
 
     if (selectedImage) {
-      formData.append("imageFile", selectedImage);
+      formData.append("files", selectedImage);
     }
 
     if (selectedSong) {
-      formData.append("songFile", selectedSong);
+      formData.append("files", selectedSong);
     }
 
     try {
-      item
-        ? await api.put(`/music/${item._id}`, formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          })
-        : await api.post("/music", formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          });
+      if (item) {
+        await api.put(`/music/${item._id}`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        toast.success("Трек успешно обновлен!");
+      } else {
+        await api.post("/music", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        toast.success("Трек успешно добавлен!");
+      }
+      dispatch(FetchMusic());
     } catch (e) {
       console.log(e);
+      toast.error("Произошла ошибка при добавлении трека!");
     }
-    dispatch(FetchMusic());
+  };
+
+  const handleFile = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setSelectedSong(file);
+    }
   };
 
   return (
@@ -141,6 +154,7 @@ const CreateTrack = ({
           </Form>
         </Formik>
       </DialogContent>
+      <ToastContainer />
     </Dialog>
   );
 };

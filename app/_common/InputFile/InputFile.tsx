@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./InputFile.module.scss";
 
 type Props = {
-  setImageSrc: (s: string) => void;
+  setImageSrc?: (s: string) => void;
   setSelectedFile: (selected: File) => void;
   label: string;
 };
@@ -17,7 +17,9 @@ const InputFile: React.FC<Props> = ({
     const file = event.target.files?.[0];
     if (file) {
       setSelectedFile(file);
-      setImageSrc(URL.createObjectURL(file));
+      if (setImageSrc) {
+        setImageSrc(URL.createObjectURL(file));
+      }
     }
   };
 
