@@ -11,7 +11,7 @@ const TopInfoAlbums = () => {
   const albums = useAppSelector((state: RootState) => state.AlbumSlice.albums);
   const router = useRouter();
   const handleClick = (id: string) => {
-    router.push(`/albums/${id}`);
+    router.push(`/album/${id}`);
   };
   return (
     <div>
