@@ -25,6 +25,7 @@ import {
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { RootState } from "@/redux/rootReducers";
 import api from "@/constants/axiosBase";
+import { toast } from "react-toastify";
 
 const Song: React.FC<{ index: number; item: MusicItems; role?: string }> = ({
   index,
@@ -45,6 +46,7 @@ const Song: React.FC<{ index: number; item: MusicItems; role?: string }> = ({
   const handleDelete = (id: string) => {
     dispatch(FetchRemoveMusic(id));
     dispatch(DeleteItem(id));
+    toast.success("Успешно удален");
   };
   return (
     <div key={index} className={styles.songs}>

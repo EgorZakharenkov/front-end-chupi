@@ -101,7 +101,7 @@ export default function Page({ params }: { params: { id: string } }) {
     setSearch("");
   };
   const handleDelete = () => {
-    api.delete(`/album/${params.id}`);
+    api.delete(`/album/${params.id}`).then();
     router.push("/album");
   };
 
