@@ -20,7 +20,7 @@ import api from "@/constants/axiosBase";
 import { RootState } from "@/redux/rootReducers";
 import { useParams, useRouter } from "next/navigation";
 
-const CreateArtist = ({ children }: { children?: string }) => {
+const CreateAlbums = ({ children }: { children?: string }) => {
   const [name, setName] = useState<string>();
   const { id } = useParams();
   const userRole = useAppSelector(
@@ -32,7 +32,7 @@ const CreateArtist = ({ children }: { children?: string }) => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (id) {
-      api.get(`/artist/${id}`).then(
+      api.get(`/albums/${id}`).then(
         ({
           data,
         }: {
@@ -63,7 +63,7 @@ const CreateArtist = ({ children }: { children?: string }) => {
     }
     try {
       id
-        ? await api.put(`/artist/${id}`, formData, {
+        ? await api.put(`/albums/${id}`, formData, {
             headers: {
               "Content-Type": "multipart/form-data",
             },
@@ -74,7 +74,7 @@ const CreateArtist = ({ children }: { children?: string }) => {
             },
           });
       dispatch(FetchArtist());
-      router.push("/artist");
+      router.push("/albums");
     } catch (e) {
       console.log(e);
     }
@@ -88,7 +88,7 @@ const CreateArtist = ({ children }: { children?: string }) => {
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
-              <DialogTitle>Добавить Артиста</DialogTitle>
+              <DialogTitle>Добавить Альбом</DialogTitle>
               <DialogDescription>
                 Внесите данные и нажмите сохранить
               </DialogDescription>
@@ -108,12 +108,16 @@ const CreateArtist = ({ children }: { children?: string }) => {
                   gap: "10px",
                 }}
               >
-                <Field variant={"dark"} label={"Артист"} name={"name"} />
+                <Field
+                  variant={"dark"}
+                  label={"Название альбома"}
+                  name={"name"}
+                />
                 {imageSrc !== "" && (
                   <img
                     className={styles.profileImage}
                     src={imageSrc || ""}
-                    alt={"artist"}
+                    alt={"album"}
                     width={120}
                     height={120}
                   />
@@ -134,4 +138,4 @@ const CreateArtist = ({ children }: { children?: string }) => {
   );
 };
 
-export default CreateArtist;
+export default CreateAlbums;

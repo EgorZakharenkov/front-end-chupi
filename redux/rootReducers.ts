@@ -3,6 +3,8 @@ import userReducer from "./slices/userSlice";
 import musicReducer from "@/redux/slices/musicSlice";
 import playListReducer from "@/redux/slices/playListSlice";
 import artistReducer from "@/redux/slices/artistSlice";
+import albumReducer from "@/redux/slices/albumsSlice";
+
 import { store } from "@/redux/store";
 
 const rootReducer = combineReducers({
@@ -10,6 +12,7 @@ const rootReducer = combineReducers({
   MusicSlice: musicReducer,
   PlayListSlice: playListReducer,
   ArtistSlice: artistReducer,
+  AlbumSlice: albumReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
