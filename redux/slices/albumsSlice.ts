@@ -1,13 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "@/constants/axiosBase";
 
-export const FetchAlbums = createAsyncThunk("artist/fetchArtist", async () => {
+export const FetchAlbums = createAsyncThunk("album/fetchAlbum", async () => {
   const { data } = await api.get("/album");
   return data;
 });
 
 export const FetchRemoveAlbums = createAsyncThunk(
-  "artist/FetchRemoveArtist",
+  "album/fetchAlbum",
   async (_id: string) => {
     await api.delete(`/album/${_id}`);
   },

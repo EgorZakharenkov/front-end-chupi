@@ -19,8 +19,6 @@ const App = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     dispatch(fetchMe());
-    dispatch(FetchArtist());
-    dispatch(FetchAlbums());
   }, []);
 
   useEffect(() => {
