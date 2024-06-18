@@ -21,6 +21,7 @@ import { useParams, useRouter } from "next/navigation";
 import { FetchAlbums } from "@/redux/slices/albumsSlice";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
+import { log } from "util";
 
 const CreateAlbums = ({ children }: { children?: string }) => {
   const [name, setName] = useState<string>();
@@ -34,7 +35,7 @@ const CreateAlbums = ({ children }: { children?: string }) => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (id) {
-      api.get(`/albums/${id}`).then(
+      api.get(`/album/${id}`).then(
         ({
           data,
         }: {
