@@ -8,6 +8,8 @@ import { RootState } from "@/redux/rootReducers";
 import { FetchMusic } from "@/redux/slices/musicSlice";
 import { FetchPLayList } from "@/redux/slices/playListSlice";
 import { fetchMe } from "@/redux/slices/userSlice";
+import { FetchArtist } from "@/redux/slices/artistSlice";
+import { FetchAlbums } from "@/redux/slices/albumsSlice";
 
 const App = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useAppDispatch();
@@ -17,6 +19,8 @@ const App = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     dispatch(fetchMe());
+    dispatch(FetchArtist());
+    dispatch(FetchAlbums());
   }, []);
 
   useEffect(() => {
