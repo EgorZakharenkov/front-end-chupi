@@ -15,12 +15,12 @@ import { Field } from "@/app/_common/Form/Field/Field";
 import styles from "@/app/(mainSite)/profile/components/EditForm/EditForm.module.scss";
 import InputFile from "@/app/_common/InputFile/InputFile";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { ArtistType, FetchArtist } from "@/redux/slices/artistSlice";
 import api from "@/constants/axiosBase";
 import { RootState } from "@/redux/rootReducers";
 import { useParams, useRouter } from "next/navigation";
 import { FetchAlbums } from "@/redux/slices/albumsSlice";
 import { toast } from "react-toastify";
+import * as Yup from "yup";
 
 const CreateAlbums = ({ children }: { children?: string }) => {
   const [name, setName] = useState<string>();
@@ -29,7 +29,6 @@ const CreateAlbums = ({ children }: { children?: string }) => {
   const userRole = useAppSelector(
     (state: RootState) => state.UserSlice.user?.userData?.role,
   );
-  const router = useRouter();
   const [selected, setSelectedFile] = useState<File | null>(null);
   const [imageSrc, setImageSrc] = useState<string | null>("");
   const dispatch = useAppDispatch();
@@ -40,23 +39,26 @@ const CreateAlbums = ({ children }: { children?: string }) => {
           data,
         }: {
           data: {
-            artist: {
+            album: {
               name: string;
               image: string;
             };
           };
         }) => {
-          if (data?.artist) {
-            setName(data.artist.name);
+          if (data?.album) {
+            setName(data.album.name);
             setImageSrc(
-              `https://back-end-chupi-production.up.railway.app/${data.artist.image}`,
+              `https://back-end-chupi-production.up.railway.app/${data.album.image}`,
             );
           }
-          console.log(data);
         },
       );
     }
   }, [id]);
+
+  const validationSchema = Yup.object({
+    name: Yup.string().required("Обязательное поле"), // Name field is required
+  });
 
   const handleSubmit = async (values: { name: string }) => {
     const formData = new FormData();
@@ -112,6 +114,7 @@ const CreateAlbums = ({ children }: { children?: string }) => {
               }}
               validateOnBlur={false}
               onSubmit={handleSubmit}
+              validationSchema={validationSchema}
             >
               <Form
                 style={{

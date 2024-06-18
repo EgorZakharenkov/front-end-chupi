@@ -20,6 +20,7 @@ import api from "@/constants/axiosBase";
 import { RootState } from "@/redux/rootReducers";
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import * as Yup from "yup";
 
 const CreateArtist = ({ children }: { children?: string }) => {
   const [name, setName] = useState<string>();
@@ -28,10 +29,16 @@ const CreateArtist = ({ children }: { children?: string }) => {
   const userRole = useAppSelector(
     (state: RootState) => state.UserSlice.user?.userData?.role,
   );
+
   const router = useRouter();
   const [selected, setSelectedFile] = useState<File | null>(null);
   const [imageSrc, setImageSrc] = useState<string | null>("");
   const dispatch = useAppDispatch();
+
+  const validationSchema = Yup.object({
+    name: Yup.string().required("Обязательное поле"), // Name field is required
+  });
+
   useEffect(() => {
     if (id) {
       api.get(`/artist/${id}`).then(
@@ -94,7 +101,7 @@ const CreateArtist = ({ children }: { children?: string }) => {
   return (
     <div>
       {userRole === "admin" && (
-        <Dialog open={open}>
+        <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger>
             <Button onClick={() => setOpen(true)} children={children} />
           </DialogTrigger>
@@ -112,6 +119,7 @@ const CreateArtist = ({ children }: { children?: string }) => {
               }}
               validateOnBlur={false}
               onSubmit={handleSubmit}
+              validationSchema={validationSchema}
             >
               <Form
                 style={{

@@ -20,6 +20,7 @@ import { useAppDispatch } from "@/redux/hooks";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { CircularProgress } from "@mui/material";
+import * as Yup from "yup";
 
 const CreateTrack = ({
   item,
@@ -50,6 +51,12 @@ const CreateTrack = ({
   const [selectedSong, setSelectedSong] = useState<File | null>(null);
   const dispatch = useAppDispatch();
 
+  const validationSchema = Yup.object({
+    songName: Yup.string().required("Обязательное поле"),
+    artist: Yup.string().required("Обязательное поле"),
+    duration: Yup.string().required("Обязательное поле"),
+    textSong: Yup.string().required("Обязательное поле"),
+  });
   const handleSubmit = async (values: {
     songName: string;
     artist: string;
@@ -132,6 +139,7 @@ const CreateTrack = ({
             }}
             validateOnBlur={false}
             onSubmit={handleSubmit}
+            validationSchema={validationSchema}
           >
             {({ handleSubmit }) => (
               <Form
