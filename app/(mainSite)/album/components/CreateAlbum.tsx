@@ -30,6 +30,7 @@ const CreateAlbums = ({ children }: { children?: string }) => {
   const userRole = useAppSelector(
     (state: RootState) => state.UserSlice.user?.userData?.role,
   );
+  const router = useRouter();
   const [selected, setSelectedFile] = useState<File | null>(null);
   const [imageSrc, setImageSrc] = useState<string | null>("");
   const dispatch = useAppDispatch();
@@ -78,6 +79,7 @@ const CreateAlbums = ({ children }: { children?: string }) => {
             .then(() => {
               toast.success("Успешно изменено");
               setOpen(false);
+              router.push("/album");
             })
         : await api
             .post("/album", formData, {

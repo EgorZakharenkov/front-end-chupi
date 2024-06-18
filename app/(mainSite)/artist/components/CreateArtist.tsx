@@ -34,7 +34,6 @@ const CreateArtist = ({ children }: { children?: string }) => {
   const [selected, setSelectedFile] = useState<File | null>(null);
   const [imageSrc, setImageSrc] = useState<string | null>("");
   const dispatch = useAppDispatch();
-
   const validationSchema = Yup.object({
     name: Yup.string().required("Обязательное поле"), // Name field is required
   });
@@ -81,6 +80,7 @@ const CreateArtist = ({ children }: { children?: string }) => {
             .then(() => {
               toast.success("Успешно");
               setOpen(false);
+              router.push("/artist");
             })
         : await api
             .post("/artist", formData, {
