@@ -123,7 +123,10 @@ const CreateTrack = ({
         <DialogTrigger asChild>
           <div onClick={() => setIsOpen(true)}>{children}</div>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent
+          style={{ background: "#000" }}
+          className="sm:max-w-[425px]"
+        >
           <DialogHeader>
             <DialogTitle>Добавить трек</DialogTitle>
             <DialogDescription>

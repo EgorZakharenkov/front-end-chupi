@@ -59,7 +59,10 @@ const HeaderPlayLists = () => {
             <FaPlus onClick={toggleDialog} />
           </i>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent
+          style={{ background: "#000" }}
+          className="sm:max-w-[425px]"
+        >
           <DialogHeader>
             <DialogTitle>Создать плейлист</DialogTitle>
             <DialogDescription>

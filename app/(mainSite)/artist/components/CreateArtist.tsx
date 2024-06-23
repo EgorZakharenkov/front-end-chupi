@@ -105,7 +105,10 @@ const CreateArtist = ({ children }: { children?: string }) => {
           <DialogTrigger>
             <Button onClick={() => setOpen(true)} children={children} />
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
+          <DialogContent
+            style={{ background: "#000" }}
+            className="sm:max-w-[425px]"
+          >
             <DialogHeader>
               <DialogTitle>Добавить Артиста</DialogTitle>
               <DialogDescription>

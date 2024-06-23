@@ -90,7 +90,7 @@ export default function Page({ params }: { params: { id: string } }) {
         <DialogTrigger asChild>
           <Button children={"Добавить"} />
         </DialogTrigger>
-        <DialogContent className={""}>
+        <DialogContent style={{ background: "#000" }} className={""}>
           <DialogHeader>
             <SearchBox
               setSearch={setSearch}

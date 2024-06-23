@@ -68,9 +68,13 @@ const EditForm = () => {
           onClick={() => setOpen(true)}
           variant={"outline"}
           children={"Изменить"}
+          disabled={!user}
         />
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent
+        style={{ background: "#000" }}
+        className="sm:max-w-[425px]"
+      >
         <DialogHeader>
           <DialogTitle>Редактировать профиль</DialogTitle>
           <DialogDescription>

@@ -45,7 +45,7 @@ const TopPlayList: React.FC<{
                   <BsTrash />
                 </i>
               </AlertDialogTrigger>
-              <AlertDialogContent>
+              <AlertDialogContent style={{ background: "#000" }}>
                 <AlertDialogHeader>
                   <AlertDialogTitle>
                     Вы уверены что хотите удалить трек ?
