@@ -119,7 +119,7 @@ const CreateTrack = ({
 
   return (
     <>
-      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <Dialog style={{background:"#000"}} open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
           <div onClick={() => setIsOpen(true)}>{children}</div>
         </DialogTrigger>
